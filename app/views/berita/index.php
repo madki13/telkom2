@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'konten:ntext',
             'penulis',
             'tanggal_terbit',
+            'tanggal_diperbarui',
             'photo',
             [
                 'class' => ActionColumn::className(),

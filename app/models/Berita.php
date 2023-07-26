@@ -33,10 +33,11 @@ class Berita extends \yii\db\ActiveRecord
         return [
             [['judul', 'konten', 'penulis', 'tanggal_terbit', 'photo'], 'required'],
             [['konten'], 'string'],
-            [['tanggal_terbit'], 'safe'],
+            [['tanggal_terbit', 'tanggal_diperbarui'], 'safe'],
             [['judul'], 'string', 'max' => 255],
             [['penulis'], 'string', 'max' => 100],
             [['photo'], 'string', 'max' => 500],
+            [['tanggal_terbit', 'tanggal_diperbarui'], 'dateformat'],
 
         ];
     }
@@ -52,12 +53,14 @@ class Berita extends \yii\db\ActiveRecord
             'konten' => 'Konten',
             'penulis' => 'Penulis',
             'tanggal_terbit' => 'Tanggal Terbit',
+            'tanggal_diperbarui' => 'Tanggal diperbarui',
             'photo' => 'Photo',
         ];
     }
 
-    
-    public function upload(){
+
+    public function upload()
+    {
         $photo = UploadedFile::getInstance($this, 'photo');
         $tmpPhoto = 'uploads/berita/' . $photo->baseName . '.' . $photo->extension;
         if ($photo->saveAs($tmpPhoto)) {

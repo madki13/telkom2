@@ -29,9 +29,11 @@ class Testimoni extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'testimoni', 'photo'], 'required'],
+            [['tanggal_terbit', 'tanggal_diperbarui'], 'safe'],
             [['nama'], 'string'],
             [['testimoni'], 'string', 'max' => 255],
             [['photo'], 'string', 'max' => 500],
+            [['tanggal_terbit', 'tanggal_diperbarui'], 'dateformat'],
         ];
     }
 
@@ -45,6 +47,8 @@ class Testimoni extends \yii\db\ActiveRecord
             'nama' => 'Nama',
             'testimoni' => 'Testimoni',
             'photo' => 'Photo',
+            'tanggal_terbit' => 'Tanggal Terbit',
+            'tanggal_diperbarui' => 'Tanggal diperbarui',
         ];
     }
 }

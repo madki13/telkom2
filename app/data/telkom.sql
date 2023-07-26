@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 24, 2023 at 02:40 AM
+-- Generation Time: Jul 26, 2023 at 03:13 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -43,58 +43,6 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `auth_assignment`
---
-
-CREATE TABLE `auth_assignment` (
-  `item_name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `created_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `auth_item`
---
-
-CREATE TABLE `auth_item` (
-  `name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `type` smallint NOT NULL,
-  `description` text COLLATE utf8mb3_unicode_ci,
-  `rule_name` varchar(64) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `data` blob,
-  `created_at` int DEFAULT NULL,
-  `updated_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `auth_item_child`
---
-
-CREATE TABLE `auth_item_child` (
-  `parent` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `auth_rule`
---
-
-CREATE TABLE `auth_rule` (
-  `name` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `data` blob,
-  `created_at` int DEFAULT NULL,
-  `updated_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `berita`
 --
 
@@ -103,9 +51,17 @@ CREATE TABLE `berita` (
   `judul` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `konten` text COLLATE utf8mb4_general_ci NOT NULL,
   `penulis` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `tanggal_terbit` date NOT NULL,
+  `tanggal_terbit` datetime DEFAULT NULL,
+  `tanggal_diperbarui` datetime DEFAULT NULL,
   `photo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `berita`
+--
+
+INSERT INTO `berita` (`id`, `judul`, `konten`, `penulis`, `tanggal_terbit`, `tanggal_diperbarui`, `photo`) VALUES
+(1, 'sadasdasd', 'asdasdsd', 'asdasd', '2023-07-26 00:00:00', NULL, 'uploads/berita/IMG_20221217_153448_803.jpg');
 
 -- --------------------------------------------------------
 
@@ -130,17 +86,19 @@ CREATE TABLE `layanan` (
   `nama` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `harga` int NOT NULL,
   `kecepatan` int NOT NULL,
-  `photo` varchar(500) COLLATE utf8mb4_general_ci NOT NULL
+  `photo` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_terbit` datetime DEFAULT NULL,
+  `tanggal_diperbarui` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `layanan`
 --
 
-INSERT INTO `layanan` (`id`, `nama`, `harga`, `kecepatan`, `photo`) VALUES
-(1, 'Paket JITU 1 - 1P\r\n\r\n', 280000, 30, ''),
-(2, 'New IndiHome Netflix 2P HSI Streaming', 555000, 100, ''),
-(3, '30 mbps', 555000, 30, '');
+INSERT INTO `layanan` (`id`, `nama`, `harga`, `kecepatan`, `photo`, `tanggal_terbit`, `tanggal_diperbarui`) VALUES
+(1, 'Paket JITU 1 - 1P\r\n\r\n', 280000, 30, '', NULL, NULL),
+(2, 'New IndiHome Netflix 2P HSI Streaming', 555000, 100, '', NULL, NULL),
+(3, '30 mbps', 555000, 30, '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -189,7 +147,9 @@ CREATE TABLE `testimoni` (
   `id` int NOT NULL,
   `nama` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `testimoni` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `photo` varchar(500) COLLATE utf8mb4_general_ci NOT NULL
+  `photo` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_terbit` datetime DEFAULT NULL,
+  `tanggal_diperbarui` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -223,34 +183,6 @@ INSERT INTO `user` (`id`, `nama`, `username`, `password`, `email`, `photo`) VALU
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `auth_assignment`
---
-ALTER TABLE `auth_assignment`
-  ADD PRIMARY KEY (`item_name`,`user_id`),
-  ADD KEY `idx-auth_assignment-user_id` (`user_id`);
-
---
--- Indexes for table `auth_item`
---
-ALTER TABLE `auth_item`
-  ADD PRIMARY KEY (`name`),
-  ADD KEY `rule_name` (`rule_name`),
-  ADD KEY `idx-auth_item-type` (`type`);
-
---
--- Indexes for table `auth_item_child`
---
-ALTER TABLE `auth_item_child`
-  ADD PRIMARY KEY (`parent`,`child`),
-  ADD KEY `child` (`child`);
-
---
--- Indexes for table `auth_rule`
---
-ALTER TABLE `auth_rule`
-  ADD PRIMARY KEY (`name`);
 
 --
 -- Indexes for table `berita`
@@ -308,7 +240,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hubungi_kami`
@@ -339,29 +271,6 @@ ALTER TABLE `testimoni`
 --
 ALTER TABLE `user`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `auth_assignment`
---
-ALTER TABLE `auth_assignment`
-  ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `auth_item`
---
-ALTER TABLE `auth_item`
-  ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `auth_item_child`
---
-ALTER TABLE `auth_item_child`
-  ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

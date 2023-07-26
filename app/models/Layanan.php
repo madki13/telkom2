@@ -30,9 +30,11 @@ class Layanan extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'harga', 'kecepatan', 'photo'], 'required'],
+            [['tanggal_terbit', 'tanggal_diperbarui'], 'safe'],
             [['nama'], 'string'],
             [['harga', 'kecepatan'], 'integer'],
             [['photo'], 'string', 'max' => 500],
+            [['tanggal_terbit', 'tanggal_diperbarui'], 'dateformat'],
         ];
     }
 
@@ -47,6 +49,8 @@ class Layanan extends \yii\db\ActiveRecord
             'harga' => 'Harga',
             'kecepatan' => 'Kecepatan',
             'photo' => 'Photo',
+            'tanggal_terbit' => 'Tanggal Terbit',
+            'tanggal_diperbarui' => 'Tanggal diperbarui',
         ];
     }
 }
