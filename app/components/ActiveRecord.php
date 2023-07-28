@@ -12,6 +12,7 @@ use yii\db\Expression;
 
 class ActiveRecord extends BaseActiveRecord
 {
+
     public function init(){
         $this->on(self::EVENT_AFTER_FIND, [$this, 'dateRestore']);
         $this->on(self::EVENT_AFTER_REFRESH, [$this, 'dateRestore']);
@@ -19,13 +20,14 @@ class ActiveRecord extends BaseActiveRecord
         parent::init();
     }
 
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['tanggal_terbit', 'tanggal_diperbarui'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['tanggal_diperbarui'],
                 ],
                 'value' => date('Y-m-d H:m:s'),
             ],
@@ -37,17 +39,27 @@ class ActiveRecord extends BaseActiveRecord
         ];
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getTanggalTerbit()
+    {
+        return self::getIndonesianDate($this->tanggal_terbit);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getTanggalDiperbarui()
+    {
+        return self::getIndonesianDate($this->tanggal_diperbarui);
+    }
+
     public function dateFormat($attribute)
     {
         $date = \DateTime::createFromFormat("d/m/Y", $this->$attribute);
         $this->$attribute = $date->format('Y-m-d');
     }
-
-    public function gettanggal_terbit()
-    {
-        return self::getIndonesianDate($this->tanggal_terbit);
-    }
-
 
     public function dateRestore()
     {
@@ -72,7 +84,20 @@ class ActiveRecord extends BaseActiveRecord
         return $date->format('Y-m-d');
     }
 
-    public static function listIndonesianMonth(){
+    public function removeMasked($attribute)
+    {
+        //        $this->$attribute = preg_replace('/\D/', '', $this->$attribute);
+        $this->$attribute = str_replace(",", "", $this->$attribute);
+    }
+
+    public static function dataList(){
+        $className = self::className();
+        return \yii\helpers\ArrayHelper::map(self::find()->asArray()->all(), 'id', $className::$dataListAttribute);
+    }
+    
+
+    public static function listIndonesianMonth()
+    {
         return [
             1 => 'Januari',
             2 => 'Februari',
@@ -88,12 +113,13 @@ class ActiveRecord extends BaseActiveRecord
             12 => 'Desember'
         ];
     }
-    
-    public static function getIndonesianDate($targetDate, $format = 'Y-m-d H:i:s', $long=true){
+
+    public static function getIndonesianDate($targetDate, $format = 'Y-m-d H:i:s', $long = true)
+    {
         $date = \DateTime::createFromFormat($format, $targetDate)->format('Y-m-d H:i:s');
-        if($long){
+        if ($long) {
             return date('d', strtotime($date)) . " " . self::listIndonesianMonth()[date('n', strtotime($date))] . " " . date('Y', strtotime($date)) . " " . date('H:i:s', strtotime($date));
-        }else{
+        } else {
             return date('d', strtotime($date)) . " " . self::listIndonesianMonth()[date('n', strtotime($date))] . " " . date('Y', strtotime($date));
         }
     }

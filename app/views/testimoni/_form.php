@@ -10,13 +10,13 @@ use yii\widgets\ActiveForm;
 
 <div class="testimoni-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'nama')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'testimoni')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'photo')->fileInput(["multiple" => true, "accept" => "image/*"]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

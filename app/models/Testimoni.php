@@ -1,6 +1,8 @@
 <?php
 
 namespace app\models;
+use yii\web\UploadedFile;
+
 
 use Yii;
 
@@ -12,7 +14,7 @@ use Yii;
  * @property string $testimoni
  * @property string $photo
  */
-class Testimoni extends \yii\db\ActiveRecord
+class Testimoni extends \app\components\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -50,5 +52,17 @@ class Testimoni extends \yii\db\ActiveRecord
             'tanggal_terbit' => 'Tanggal Terbit',
             'tanggal_diperbarui' => 'Tanggal diperbarui',
         ];
+    }
+
+    public function upload()
+    {
+        $photo = UploadedFile::getInstance($this, 'photo');
+        $tmpPhoto = 'uploads/berita/' . $photo->baseName . '.' . $photo->extension;
+        if ($photo->saveAs($tmpPhoto)) {
+            $this->photo = $tmpPhoto;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

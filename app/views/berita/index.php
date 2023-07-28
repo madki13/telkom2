@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\BeritaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Beritas';
+$this->title = 'Berita';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="berita-index">
@@ -34,8 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'konten:ntext',
             'penulis',
             'tanggal_terbit',
-            'tanggal_diperbarui',
-            'photo',
+            //  'photo',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Berita $model, $key, $index, $column) {

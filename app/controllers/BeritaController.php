@@ -69,7 +69,7 @@ class BeritaController extends Controller
     public function actionCreate()
     {
         $model = new Berita();
-        $model->tanggal_terbit = date('Y-m-d');
+        $model->tanggal_terbit = date('d/m/Y');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->upload() && $model->save()) {

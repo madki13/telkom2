@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 26, 2023 at 03:13 AM
+-- Generation Time: Jul 28, 2023 at 03:41 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -53,15 +53,19 @@ CREATE TABLE `berita` (
   `penulis` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_terbit` datetime DEFAULT NULL,
   `tanggal_diperbarui` datetime DEFAULT NULL,
-  `photo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `photo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `berita`
 --
 
-INSERT INTO `berita` (`id`, `judul`, `konten`, `penulis`, `tanggal_terbit`, `tanggal_diperbarui`, `photo`) VALUES
-(1, 'sadasdasd', 'asdasdsd', 'asdasd', '2023-07-26 00:00:00', NULL, 'uploads/berita/IMG_20221217_153448_803.jpg');
+INSERT INTO `berita` (`id`, `judul`, `konten`, `penulis`, `tanggal_terbit`, `tanggal_diperbarui`, `photo`, `created_by`, `updated_by`) VALUES
+(1, 'sadasdasd', 'asdasdsd', 'asdasd', '2023-07-26 00:00:00', NULL, 'uploads/berita/IMG_20221217_153448_803.jpg', NULL, NULL),
+(2, 'adwe', 'asdasda', 'asd', '2023-07-26 00:00:00', NULL, 'uploads/berita/IMG_20221217_153448_803.jpg', NULL, NULL),
+(3, 'adad', 'aasd', 'asdasd', '2023-07-28 13:07:48', '2023-07-28 13:07:48', 'uploads/berita/erd.png', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -88,17 +92,20 @@ CREATE TABLE `layanan` (
   `kecepatan` int NOT NULL,
   `photo` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_terbit` datetime DEFAULT NULL,
-  `tanggal_diperbarui` datetime DEFAULT NULL
+  `tanggal_diperbarui` datetime DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `layanan`
 --
 
-INSERT INTO `layanan` (`id`, `nama`, `harga`, `kecepatan`, `photo`, `tanggal_terbit`, `tanggal_diperbarui`) VALUES
-(1, 'Paket JITU 1 - 1P\r\n\r\n', 280000, 30, '', NULL, NULL),
-(2, 'New IndiHome Netflix 2P HSI Streaming', 555000, 100, '', NULL, NULL),
-(3, '30 mbps', 555000, 30, '', NULL, NULL);
+INSERT INTO `layanan` (`id`, `nama`, `harga`, `kecepatan`, `photo`, `tanggal_terbit`, `tanggal_diperbarui`, `created_by`, `updated_by`) VALUES
+(1, 'Paket JITU 1 - 1P\r\n\r\n', 280000, 30, '', NULL, NULL, NULL, NULL),
+(2, 'New IndiHome Netflix 2P HSI Streaming', 555000, 100, '', NULL, NULL, NULL, NULL),
+(3, '30 mbps', 555000, 30, '', NULL, NULL, NULL, NULL),
+(4, 'qweqwe', 2132, 232, 'uploads/layanan/erd.png', '2023-07-28 15:07:56', '2023-07-28 15:07:56', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -149,8 +156,17 @@ CREATE TABLE `testimoni` (
   `testimoni` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `photo` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal_terbit` datetime DEFAULT NULL,
-  `tanggal_diperbarui` datetime DEFAULT NULL
+  `tanggal_diperbarui` datetime DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `testimoni`
+--
+
+INSERT INTO `testimoni` (`id`, `nama`, `testimoni`, `photo`, `tanggal_terbit`, `tanggal_diperbarui`, `created_by`, `updated_by`) VALUES
+(1, '21321', 'asdas', 'uploads/berita/poster zaki.png', '2023-07-28 15:07:08', '2023-07-28 15:07:08', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -240,7 +256,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hubungi_kami`
@@ -252,7 +268,7 @@ ALTER TABLE `hubungi_kami`
 -- AUTO_INCREMENT for table `layanan`
 --
 ALTER TABLE `layanan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `menu`
@@ -264,7 +280,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `testimoni`
 --
 ALTER TABLE `testimoni`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`

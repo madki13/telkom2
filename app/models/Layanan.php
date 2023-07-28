@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "layanan".
@@ -13,7 +14,7 @@ use Yii;
  * @property int $kecepatan
  * @property string $photo
  */
-class Layanan extends \yii\db\ActiveRecord
+class Layanan extends \app\components\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -34,7 +35,6 @@ class Layanan extends \yii\db\ActiveRecord
             [['nama'], 'string'],
             [['harga', 'kecepatan'], 'integer'],
             [['photo'], 'string', 'max' => 500],
-            [['tanggal_terbit', 'tanggal_diperbarui'], 'dateformat'],
         ];
     }
 
@@ -52,5 +52,17 @@ class Layanan extends \yii\db\ActiveRecord
             'tanggal_terbit' => 'Tanggal Terbit',
             'tanggal_diperbarui' => 'Tanggal diperbarui',
         ];
+    }
+
+    public function upload()
+    {
+        $photo = UploadedFile::getInstance($this, 'photo');
+        $tmpPhoto = 'uploads/layanan/' . $photo->baseName . '.' . $photo->extension;
+        if ($photo->saveAs($tmpPhoto)) {
+            $this->photo = $tmpPhoto;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

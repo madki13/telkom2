@@ -13,9 +13,13 @@ use yii\web\UploadedFile;
  * @property string $konten
  * @property string $penulis
  * @property string $tanggal_terbit
+ * @property string $tanggal_diperbarui
  * @property string $photo
+ * @property string|null $tanggal_terbit
+ * @property string|null $tanggal_diperbarui
+
  */
-class Berita extends \yii\db\ActiveRecord
+class Berita extends \app\components\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -33,12 +37,11 @@ class Berita extends \yii\db\ActiveRecord
         return [
             [['judul', 'konten', 'penulis', 'tanggal_terbit', 'photo'], 'required'],
             [['konten'], 'string'],
+            [['created_by', 'updated_by'], 'integer'],
             [['tanggal_terbit', 'tanggal_diperbarui'], 'safe'],
             [['judul'], 'string', 'max' => 255],
             [['penulis'], 'string', 'max' => 100],
             [['photo'], 'string', 'max' => 500],
-            [['tanggal_terbit', 'tanggal_diperbarui'], 'dateformat'],
-
         ];
     }
 
@@ -70,4 +73,5 @@ class Berita extends \yii\db\ActiveRecord
             return false;
         }
     }
+
 }

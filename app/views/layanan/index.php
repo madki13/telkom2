@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\LayananSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Layanans';
+$this->title = 'Layanan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="layanan-index">

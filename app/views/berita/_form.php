@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
                     <div class="col-6">
                         <?= $form->field($model, 'tanggal_terbit')->widget(kartik\date\DatePicker::className(), [
                             'pluginOptions' => [
-                                'format' => 'yyyy/mm/dd',
+                                'format' => 'dd/mm/yyyy',
                             ]
                         ]) ?> 
                     </div>
