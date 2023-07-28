@@ -57,7 +57,7 @@ class Testimoni extends \app\components\ActiveRecord
     public function upload()
     {
         $photo = UploadedFile::getInstance($this, 'photo');
-        $tmpPhoto = 'uploads/berita/' . $photo->baseName . '.' . $photo->extension;
+        $tmpPhoto = 'uploads/testimoni/' . $photo->baseName . '.' . $photo->extension;
         if ($photo->saveAs($tmpPhoto)) {
             $this->photo = $tmpPhoto;
             return true;
