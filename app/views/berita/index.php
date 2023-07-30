@@ -13,6 +13,9 @@ use yii\grid\GridView;
 $this->title = 'Berita';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
+
 <div class="berita-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -45,4 +48,24 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 
-</div>
+</div> 
+
+<?php /* <div class="Berita-index">
+    <?= GridView::widget($dataProvider, $searchModel, $this->title,
+    [
+        ['class' => 'kartik\grid\SerialColumn'],
+            'id',
+            'judul',
+            'konten:ntext',
+            'penulis',
+            'tanggal_terbit',
+            //  'photo',
+        [
+            'class' => ActionColumn::className(),
+            'width' => '150px',
+            'urlCreator' => function ($action, $model, $key, $index, $column) {
+                return Url::toRoute([$action, 'id' => $model->id]);
+            }
+        ],
+    ]) ?>
+</div> */

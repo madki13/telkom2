@@ -57,7 +57,7 @@ class Berita extends \app\components\ActiveRecord
             'penulis' => 'Penulis',
             'tanggal_terbit' => 'Tanggal Terbit',
             'tanggal_diperbarui' => 'Tanggal diperbarui',
-            'photo' => 'Photo',
+            'photo' => 'foto',
         ];
     }
 
