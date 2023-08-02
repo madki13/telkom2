@@ -27,6 +27,20 @@ class User extends ActiveRecord
             'authKey' => 'test101key',
             'accessToken' => '101-token',
         ],
+        '102' => [
+            'id' => '102',
+            'username' => 'penulis',
+            'password' => 'penulis',
+            'authKey' => 'test101key',
+            'accessToken' => '101-token',
+        ],
+        '103' => [
+            'id' => '103',
+            'username' => 'guest',
+            'password' => 'guest',
+            'authKey' => 'test101key',
+            'accessToken' => '101-token',
+        ],
     ];
 
 

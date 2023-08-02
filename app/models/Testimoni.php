@@ -24,6 +24,8 @@ class Testimoni extends \app\components\ActiveRecord
         return 'testimoni';
     }
 
+    public $verifyCode;
+
     /**
      * {@inheritdoc}
      */
@@ -32,10 +34,11 @@ class Testimoni extends \app\components\ActiveRecord
         return [
             [['nama', 'testimoni', 'photo'], 'required'],
             [['tanggal_terbit', 'tanggal_diperbarui'], 'safe'],
-            [['nama'], 'string'],
+            [['nama'], 'string', 'max' => 50],
             [['testimoni'], 'string', 'max' => 255],
             [['photo'], 'string', 'max' => 500],
             [['tanggal_terbit', 'tanggal_diperbarui'], 'dateformat'],
+            ['verifyCode', 'captcha'],
         ];
     }
 
@@ -51,6 +54,7 @@ class Testimoni extends \app\components\ActiveRecord
             'photo' => 'Photo',
             'tanggal_terbit' => 'Tanggal Terbit',
             'tanggal_diperbarui' => 'Tanggal diperbarui',
+            'verifyCode' => 'Kode verifikasi',
         ];
     }
 

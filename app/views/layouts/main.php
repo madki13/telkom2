@@ -37,7 +37,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Layanan', 'url' => ['/layanan']],
+            //['label' => 'Layanan', 'url' => ['/layanan']],
             ['label' => 'Berita', 'url' => ['/berita']],
             ['label' => 'Testimoni', 'url' => ['/testimoni']],
             ['label' => 'Hubungi Kami', 'url' => ['/site/contact']],
