@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-<div class="berita-index">
+<div id="berita-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -26,15 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemView' => 'view',
-        'viewParams' => [
-            'fullView' => true,
-            'context' => 'main-page',
-        ],
-    ]);?>
+    <div class="container">
+        <div class="row">
+            <div class="row">
+            <?php
+                echo ListView::widget( [
+                    'dataProvider' => $dataProvider,
+                    'pager' => ['options' => ['class' => 'pagination col-md-12', 'maxButtonCount'=>4]],
+                    'itemView' => 'blog/listNews',
+                    'summary'=>'',
+                ]); ?>
 
+            </div>
+
+        </div>
+
+    </div>
 
 </div> 
 

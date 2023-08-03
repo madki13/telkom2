@@ -18,6 +18,8 @@ use yii\web\UploadedFile;
  * @property string $photo
  * @property string|null $tanggal_terbit
  * @property string|null $tanggal_diperbarui
+ * @property int $views
+ * @property string $summary
 
  */
 class Berita extends \app\components\ActiveRecord
@@ -36,13 +38,15 @@ class Berita extends \app\components\ActiveRecord
     public function rules()
     {
         return [
-            [['judul', 'konten', 'penulis', 'tanggal_terbit', 'photo'], 'required'],
+            [['judul', 'konten', 'penulis', 'tanggal_terbit', 'photo', 'summary'], 'required'],
             [['konten'], 'string'],
-            [['created_by', 'updated_by'], 'integer'],
-            [['tanggal_terbit', 'tanggal_diperbarui'], 'safe'],
+            [['created_by', 'updated_by', 'views'], 'integer'],
+            [['tanggal_terbit', 'tanggal_diperbarui','views'], 'safe'],
             [['judul'], 'string', 'max' => 255],
             [['penulis'], 'string', 'max' => 100],
             [['photo'], 'string', 'max' => 500],
+            [['summary'], 'string', 'max' => 500],
+
         ];
     }
 
@@ -59,6 +63,9 @@ class Berita extends \app\components\ActiveRecord
             'tanggal_terbit' => 'Tanggal Terbit',
             'tanggal_diperbarui' => 'Tanggal diperbarui',
             'photo' => 'foto',
+            'views' => 'Views',
+            'summary' => 'Summary',
+
         ];
     }
 
@@ -75,5 +82,18 @@ class Berita extends \app\components\ActiveRecord
         }
     }
 
-
+    public static function updateView($id){
+        $session = Yii::$app->session;
+        
+        if(empty($_SESSION['views'])){
+            $_SESSION['views'] = array();
+        }
+        if(!isset($_SESSION['views'][$id])){
+            $model = self::findOne($id);
+            $model->views = $model->views + 1;
+            $model->save();
+            $_SESSION['views'][$id] = 'visited';
+        }
+        $session->close(); 
+    }
 }
