@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 
 /**
  * BeritaController implements the CRUD actions for Berita model.
@@ -46,6 +48,19 @@ class BeritaController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
+
+        $provider = new ArrayDataProvider([
+            'allModels' => $this->getFakedModels(),
+            'pagination' => [
+                'pageSize' => 5
+            ],
+            'sort' => [
+                'attributes' => ['id'],
+            ],
+        ]);
+
+        return $this->render('index', ['listDataProvider' => $provider]);
     }
 
     /**
@@ -132,6 +147,19 @@ class BeritaController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionList()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Berita::find()->where(['status' => 1])->orderBy('id DESC'),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        $this->view->title = 'Posts List';
+        return $this->render('list', ['listDataProvider' => $dataProvider]);
     }
 
 }

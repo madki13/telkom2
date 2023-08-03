@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\UploadedFile;
 
 /**
@@ -73,5 +74,6 @@ class Berita extends \app\components\ActiveRecord
             return false;
         }
     }
+
 
 }

@@ -8,12 +8,11 @@ use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <p>Tolong isi untuk masuk sebagai admin</p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
